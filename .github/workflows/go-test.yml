@@ -1,0 +1,20 @@
+name: go-test
+
+on:
+  workflow_dispatch:
+  push:
+  schedule:
+    - cron: '*/2 * * * *'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        id: setup-go
+        with:
+          go-version-file: "go.mod"
+
+      - name: Test
+        run: go test -v ./...
